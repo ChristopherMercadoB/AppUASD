@@ -34,6 +34,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import NoticiasPage from './pages/NoticiasPage';
 import TareasPage from './pages/TareasPage';
 import VideosPage from './pages/VideosPage';
@@ -56,6 +57,10 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/login">
           <LoginPage />
+        </Route>
+
+        <Route exact path="/register">
+          <RegisterPage />
         </Route>
 
         <Route exact path="/home">

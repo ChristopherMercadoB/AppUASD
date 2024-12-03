@@ -1,10 +1,8 @@
-import { EventHandler, FormEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import axios from "axios";
 import {
   IonPage,
   IonContent,
-  IonInput,
-  IonButton,
   IonHeader,
   IonToolbar,
   IonTitle,
@@ -13,42 +11,41 @@ import {
   IonCol,
   IonCard,
   IonCardContent,
+  IonInput,
+  IonButton,
 } from "@ionic/react";
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const handleLogin = (e: FormEvent) => {
+  const handleRegister = (e: FormEvent) => {
     e.preventDefault();
-    if (!username || !password) {
-      alert("El usuario o contraseña no pueden estar vacíos");
+    if (!nombre || !apellido || !username || !password || !email) {
+      alert("Todos los campos son obligatorios");
       return;
     }
 
+    const newUser = { nombre, apellido, username, password, email };
     axios
-      .post("https://uasdapi.ia3x.com/login", { username, password })
-      .then((response) => {
-        const authToken = response.data.data?.authToken;
-        if (authToken) {
-          localStorage.setItem("token", authToken);
-          console.log(localStorage.getItem("token"));
-          console.log(username);
-          window.location.href = "/home";
-        } else {
-          alert("Credenciales incorrectas");
-        }
+      .post("https://uasdapi.ia3x.com/crear_usuario", newUser)
+      .then(() => {
+        alert("Registro exitoso");
+        window.location.href = "/login";
       })
       .catch(() => {
-        alert("Credenciales incorrectas");
+        alert("Error al registrar usuario");
       });
   };
 
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
-          <IonTitle>Iniciar Sesión</IonTitle>
+        <IonToolbar color="tertiary">
+          <IonTitle>Registro de Usuario</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -57,7 +54,21 @@ const LoginPage: React.FC = () => {
             <IonCol size="12" size-md="6" size-lg="4">
               <IonCard>
                 <IonCardContent>
-                  <form onSubmit={handleLogin}>
+                  <form onSubmit={handleRegister}>
+                    <IonInput
+                      value={nombre}
+                      placeholder="Nombre"
+                      onIonChange={(e) => setNombre(e.detail.value!)}
+                      required
+                      clearInput
+                    />
+                    <IonInput
+                      value={apellido}
+                      placeholder="Apellido"
+                      onIonChange={(e) => setApellido(e.detail.value!)}
+                      required
+                      clearInput
+                    />
                     <IonInput
                       value={username}
                       placeholder="Usuario"
@@ -73,22 +84,30 @@ const LoginPage: React.FC = () => {
                       required
                       clearInput
                     />
+                    <IonInput
+                      type="email"
+                      value={email}
+                      placeholder="Correo Electrónico"
+                      onIonChange={(e) => setEmail(e.detail.value!)}
+                      required
+                      clearInput
+                    />
                     <IonButton
                       expand="block"
                       type="submit"
                       color="primary"
                       className="ion-margin-top"
                     >
-                      Ingresar
+                      Registrar
                     </IonButton>
                   </form>
                   <IonButton
                     expand="block"
                     color="secondary"
-                    routerLink="/register"
+                    routerLink="/login"
                     className="ion-margin-top"
                   >
-                    Registrarse
+                    back to Login
                   </IonButton>
                 </IonCardContent>
               </IonCard>
@@ -100,4 +119,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
