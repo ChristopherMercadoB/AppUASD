@@ -1,19 +1,72 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
-type Props = {};
+interface Video {
+  id: number;
+  titulo: string;
+  url: string;
+  fechaPublicacion: string;
+}
 
-const VideosPage: React.FC<Props> = () => {
+const VideosPage: React.FC = () => {
+  const [videos, setVideos] = useState<Video[]>([]);
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    
+    if (token) {
+      axios
+        .get('https://uasdapi.ia3x.com/videos', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log('Datos de videos:', response.data);
+          setVideos(response.data);
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            console.log('No autorizado. Token inválido o expirado.');
+          } else {
+            console.log('Error al obtener los videos:', error);
+          }
+        });
+    } else {
+      console.log('No hay token disponible en localStorage');
+    }
+  }, []);
+
   return (
-    <div style={{ padding: '1rem' }}>
-      <h1>Video Page</h1>
-      <iframe
-        src="https://onedrive.live.com/?cid=55058228DDB9E685&id=55058228DDB9E685%21s5568dc3d60ac4f6aad03ff9bb5b3909e&parId=55058228DDB9E685%21s4f21211e22c64be9bbbf820e2c0f42f0&o=OneUp"
-        width="100%"
-        height="400"
-        style={{ border: 'none' }}
-        allowFullScreen
-      ></iframe>
-    </div>
+    <IonPage>
+      <BackHome />
+      <IonContent>
+        <h1 style={{ padding: '1rem', textAlign: 'center' }}>Videos</h1>
+        {videos && videos.length > 0 ? (
+          videos.map((video) => (
+            <IonCard key={video.id}>
+              <IonCardHeader>
+                <IonCardTitle>{video.titulo}</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <iframe
+                  src={`https://www.youtube.com/embed/${video.url}`}
+                  width="100%"
+                  height="315"
+                  style={{ border: 'none' }}
+                  allowFullScreen
+                ></iframe>
+                <p style={{ marginTop: '1rem' }}>Publicado el: {new Date(video.fechaPublicacion).toLocaleDateString()}</p>
+              </IonCardContent>
+            </IonCard>
+          ))
+        ) : (
+          <p style={{ padding: '1rem', textAlign: 'center' }}>No hay videos disponibles.</p>
+        )}
+      </IonContent>
+    </IonPage>
   );
 };
 
