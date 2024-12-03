@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IonPage, IonContent, IonList, IonItem, IonLabel } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 
 interface Horario{
@@ -30,6 +31,7 @@ const HorariosPage: React.FC = () => {
 
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         <IonList>
           {horarios && horarios.map((horario, index) => (

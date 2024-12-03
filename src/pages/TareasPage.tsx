@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton, IonLabel } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 interface Tarea {
   id: number;
@@ -34,6 +35,7 @@ const TareasPage: React.FC = () => {
 
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         {tareas.length > 0 ? (
           tareas.map((tarea) => (

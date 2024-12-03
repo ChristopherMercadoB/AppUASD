@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IonPage, IonContent, IonLabel, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 interface Deuda {
   id: number;
@@ -22,7 +23,7 @@ const DeudaPage: React.FC = () => {
         },
       })
       .then((response) => {
-        setDeuda(response.data);  // Suponiendo que `response.data` es un array de deudas
+        setDeuda(response.data);  
       })
       .catch((error) => console.log(error));
   }, [token]);
@@ -33,6 +34,7 @@ const DeudaPage: React.FC = () => {
 
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         {deuda.length > 0 ? (
           deuda.map((item) => (

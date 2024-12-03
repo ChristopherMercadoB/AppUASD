@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonButton } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 interface Evento {
   id: number;
@@ -33,6 +34,7 @@ const EventosPage: React.FC = () => {
 
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         {eventos.length > 0 ? (
           eventos.map((evento) => (

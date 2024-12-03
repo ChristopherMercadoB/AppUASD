@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IonPage, IonContent, IonList, IonItem, IonLabel, IonButton, IonToast, IonLoading } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 interface Materia {
   codigo: string;
@@ -47,14 +48,13 @@ const PreseleccionPage: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      // Enviar el código como un string JSON válido
       await axios.post(
         'https://uasdapi.ia3x.com/preseleccionar_materia',
-        JSON.stringify(seleccionada), // Convertir el código a un string JSON
+        JSON.stringify(seleccionada), 
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json', // Indicar que es JSON
+            'Content-Type': 'application/json', 
           },
         }
       );
@@ -69,6 +69,7 @@ const PreseleccionPage: React.FC = () => {
 
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         <IonList>
           {asignaturas.map((asignatura) => (

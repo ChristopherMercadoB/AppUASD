@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IonPage, IonContent } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 interface Noticia {
   id: number;
@@ -46,6 +47,7 @@ const NoticiasPage: React.FC = () => {
   
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         {noticias && noticias.length > 0 ? (
           noticias.map((noticia, index) => (

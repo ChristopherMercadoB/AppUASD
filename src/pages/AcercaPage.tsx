@@ -1,6 +1,7 @@
 import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonImg, IonGrid, IonRow, IonCol } from '@ionic/react';
 import chris from '../assets/Christopher.jpg';
 import anchelo from '../assets/Anchelo.jpg';
+import BackHome from '../components/BackHome';
 
 const AcercaPage: React.FC = () => {
   const estudiantes = [
@@ -22,12 +23,13 @@ const AcercaPage: React.FC = () => {
 
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         <IonGrid>
           <IonRow>
             {estudiantes.map((estudiante, index) => (
-              <IonCol size="12" key={index}> {/* Cambiamos size a 12 para que cada tarjeta ocupe el ancho completo */}
-                <IonCard style={{ width: '90%', margin: '0 auto' }}> {/* Ajustamos el ancho de cada tarjeta */}
+              <IonCol size="12" key={index}> 
+                <IonCard style={{ width: '90%', margin: '0 auto' }}> 
                   <IonImg src={estudiante.foto} alt={`Foto de ${estudiante.nombre} ${estudiante.apellido}`} />
                   <IonCardHeader>
                     <IonCardTitle>{`${estudiante.nombre} ${estudiante.apellido}`}</IonCardTitle>

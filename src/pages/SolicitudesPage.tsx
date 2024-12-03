@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IonPage, IonContent, IonList, IonItem, IonLabel } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 export interface Solicitud{
   tipo: string;
@@ -18,6 +19,7 @@ const SolicitudesPage: React.FC = () => {
 
   return (
     <IonPage>
+      <BackHome/>
       <IonContent>
         <IonList>
           {solicitudes.map((solicitud, index) => (

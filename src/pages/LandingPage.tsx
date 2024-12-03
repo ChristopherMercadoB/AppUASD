@@ -1,4 +1,5 @@
 import { IonPage, IonContent, IonButton } from '@ionic/react';
+import BackHome from '../components/BackHome';
 
 const LandingPage: React.FC = () => (
   <IonPage>
