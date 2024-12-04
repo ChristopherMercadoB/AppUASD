@@ -12,7 +12,7 @@ const SolicitudesPage: React.FC = () => {
   const [solicitudes, setSolicitudes] = useState<Solicitud[]>([]);
 
   useEffect(() => {
-    axios.get('API_URL/solicitudes')
+    axios.get('https://uasdapi.ia3x.com/solicitudes')
       .then(response => setSolicitudes(response.data))
       .catch(error => console.log(error));
   }, []);
